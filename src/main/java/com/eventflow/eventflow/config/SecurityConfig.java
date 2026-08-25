@@ -5,6 +5,7 @@ import com.eventflow.eventflow.security.JwtAuthenticationEntryPoint;
 import com.eventflow.eventflow.security.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -42,8 +43,15 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/api/auth/register",
-                                "/api/auth/login"
+                                "/api/auth/login",
+                                "/swagger-ui.html",
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**"
                         ).permitAll()
+
+                        // Public event listing (read-only); create/publish stay authenticated
+                        .requestMatchers(HttpMethod.GET, "/api/events", "/api/events/*", "/api/events/*/seats")
+                        .permitAll()
 
                         // Admin only
                         .requestMatchers("/api/admin/**")

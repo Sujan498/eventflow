@@ -2,6 +2,14 @@
 
 > A production-inspired Event Ticket Booking System built with **Spring Boot**, documenting the journey from a monolithic backend to a scalable distributed system.
 
+## 🌐 Live Demo
+
+- **API base:** https://backend-production-8cee.up.railway.app
+- **Interactive docs:** https://backend-production-8cee.up.railway.app/swagger-ui.html
+- Register via `POST /api/auth/register`, log in via `POST /api/auth/login`, then use the returned JWT as `Authorization: Bearer <token>`.
+
+Hosted on Railway with managed PostgreSQL and Redis. The hosted demo runs **without a Kafka broker** (free-tier service limit), so booking-confirmation notifications are not dispatched there; everything else — auth, venues, halls, seat locking, bookings, payments — is live. Run `docker compose up` locally for the full stack including Kafka.
+
 EventFlow is a hands-on backend engineering project focused on understanding how real-world event booking platforms are designed. Rather than building isolated CRUD APIs, the project models production workflows while documenting every major architectural decision, business rule, and Spring Boot concept along the way.
 
 ---
