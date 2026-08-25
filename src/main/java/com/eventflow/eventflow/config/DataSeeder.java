@@ -59,8 +59,8 @@ public class DataSeeder implements CommandLineRunner {
         }
         log.info("DataSeeder: empty database detected, seeding demo data.");
 
-        User admin = user("Demo", "Admin", "admin@eventflow.app", "Admin@1234", Role.ADMIN);
-        user("Demo", "User", "demo@eventflow.app", "Demo@1234", Role.USER);
+        User admin = user("Demo", "Admin", "admin@eventflow.app", "+919000000001", "Admin@1234", Role.ADMIN);
+        user("Demo", "User", "demo@eventflow.app", "+919000000002", "Demo@1234", Role.USER);
 
         List<Hall> halls = new ArrayList<>();
         halls.addAll(venueWithHalls("Lakeside Convention Hall", "Outer Ring Road, Bellandur",
@@ -101,13 +101,14 @@ public class DataSeeder implements CommandLineRunner {
                 halls.size(), events.length);
     }
 
-    private User user(String first, String last, String email, String rawPassword, Role role) {
+    private User user(String first, String last, String email, String phone, String rawPassword, Role role) {
         Instant now = Instant.now();
         User u = new User();
         u.setId(UUID.randomUUID());
         u.setFirstName(first);
         u.setLastName(last);
         u.setEmail(email);
+        u.setPhoneNumber(phone);
         u.setPassword(passwordEncoder.encode(rawPassword));
         u.setDateOfBirth(LocalDate.of(1998, 1, 1));
         u.setRole(role);
