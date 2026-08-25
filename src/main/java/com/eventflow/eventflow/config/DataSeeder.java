@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Seeds a demo catalogue on first boot so the hosted instance has browsable data.
@@ -81,6 +82,7 @@ public class DataSeeder implements CommandLineRunner {
             Instant start = now.plus(Long.parseLong(e[2]), ChronoUnit.DAYS)
                     .truncatedTo(ChronoUnit.HOURS).plus(18, ChronoUnit.HOURS);
             Event ev = new Event();
+            ev.setId(UUID.randomUUID());
             ev.setTitle(e[0]);
             ev.setDescription(e[1]);
             ev.setBannerUrl("https://placehold.co/1200x400/1a1a2e/ffffff?text=" + e[0].replace(" ", "+"));
@@ -102,6 +104,7 @@ public class DataSeeder implements CommandLineRunner {
     private User user(String first, String last, String email, String rawPassword, Role role) {
         Instant now = Instant.now();
         User u = new User();
+        u.setId(UUID.randomUUID());
         u.setFirstName(first);
         u.setLastName(last);
         u.setEmail(email);
@@ -118,6 +121,7 @@ public class DataSeeder implements CommandLineRunner {
                                       double lat, double lon, int hallCount) {
         Instant now = Instant.now();
         Venue v = new Venue();
+        v.setId(UUID.randomUUID());
         v.setName(name);
         v.setAddress(address);
         v.setCity(city);
@@ -132,6 +136,7 @@ public class DataSeeder implements CommandLineRunner {
         List<Hall> halls = new ArrayList<>();
         for (int h = 1; h <= hallCount; h++) {
             Hall hall = new Hall();
+            hall.setId(UUID.randomUUID());
             hall.setHallNumber(h);
             hall.setCapacity(ROWS * SEATS_PER_ROW);
             hall.setVenue(v);
@@ -143,6 +148,7 @@ public class DataSeeder implements CommandLineRunner {
             for (int r = 0; r < ROWS; r++) {
                 for (int n = 1; n <= SEATS_PER_ROW; n++) {
                     Seat s = new Seat();
+                    s.setId(UUID.randomUUID());
                     s.setRowLabel((char) ('A' + r));
                     s.setSeatNumber(n);
                     s.setSeatType(SeatType.EXECUTIVE);
